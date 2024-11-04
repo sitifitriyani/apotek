@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Add Obat</title>
+        <title>Update Obat</title>
         <link rel="stylesheet" th:href="@{/css/style.css}">
     </head>
     <body>
         <div class="container">
-            <h1>Add Obat</h1>
-            <form th:action="@{/obat/add}" method="POST">
+            <h1>Update Obat</h1>
+            <form th:action="@{/obat/update/{id}(id=${obat.id})}" method="POST" th:object="${obat}">
                 <div class="form-group">
                     <label for="namaObat">Name Obat:</label>
-                    <input type="text" class="form-control" id="namaObat" name="namaObat" placeholder="Enter name obat" required>
+                    <input type="text" class="form-control" id="namaObat" name="namaObat" 
+                           th:value="*{namaObat}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="price">Price:</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" required>
+                    <input type="number" class="form-control" id="price" name="price" 
+                           th:value="*{price}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="description">Description:</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Enter description" rows="3"></textarea>
+                    <textarea class="form-control" id="description" name="description" 
+                              rows="3" th:text="*{description}"></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="category">Category:</label>
                     <select class="form-control" id="category" name="category.id" required>
                         <option value="">Select Category</option>
                         <option th:each="category : ${categories}"
                                 th:value="${category.id}" 
-                                th:text="${category.name}">
+                                th:text="${category.name}"
+                                th:selected="${category.id == obat.category.id}">
                         </option>
                     </select>
                 </div>
@@ -40,12 +44,13 @@
                         <option value="">Select Supplier</option>
                         <option th:each="supplier : ${suppliers}"
                                 th:value="${supplier.id}" 
-                                th:text="${supplier.name}">
+                                th:text="${supplier.name}"
+                                th:selected="${supplier.id == obat.supplier.id}">
                         </option>
                     </select>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Update</button>
                 <a th:href="@{/}" class="btn btn-danger">Back To List</a>
             </form>
         </div>
