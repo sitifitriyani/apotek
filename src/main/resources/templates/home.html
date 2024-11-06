@@ -20,7 +20,8 @@
                         <th>Price</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Supplier</th>
+                        <th>Supplier Name</th>
+                        <th>Supplier Phone</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -32,14 +33,21 @@
                         <td th:text="${obat.description}"></td>
                         <td th:text="${obat.category != null ? obat.category.name : '-'}"></td>
                         <td th:text="${obat.supplier != null ? obat.supplier.name : '-'}"></td>
+                        <td th:text="${obat.supplier != null ? obat.supplier.phone : '-'}"></td>
                         <td>
-                            <a th:href="@{/obat/edit/{id}(id=${obat.id})}" class="btn btn-warning">Edit</a>
+                            <a th:href="@{/obat/edit/{id}(id=${obat.id})}" class="btn btn-danger">Edit</a>
                             <a th:href="@{/obat/delete/{id}(id=${obat.id})}" class="btn btn-danger" 
                                onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <button>
+                <a th:href="@{/supplier}" class="btn btn-danger">List Supplier</a>
+            </button>
+            <button>
+                <a th:href="@{/category}" class="btn btn-danger">List Category</a>
+            </button>
         </div>
     </body>
 </html>

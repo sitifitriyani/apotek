@@ -7,25 +7,25 @@
     <body>
         <div class="container">
             <h1>Update Obat</h1>
-            <form th:action="@{/obat/update/{id}(id=${obat.id})}" method="POST" th:object="${obat}">
+            <form th:action="@{/obat/edit/{id}(id=${obat.id})}" method="POST">
                 <div class="form-group">
                     <label for="namaObat">Name Obat:</label>
                     <input type="text" class="form-control" id="namaObat" name="namaObat" 
-                           th:value="*{namaObat}" required>
+                           th:value="${obat.namaObat}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="price">Price:</label>
                     <input type="number" class="form-control" id="price" name="price" 
-                           th:value="*{price}" required>
+                           th:value="${obat.price}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="description">Description:</label>
                     <textarea class="form-control" id="description" name="description" 
-                              rows="3" th:text="*{description}"></textarea>
+                              rows="3" th:text="${obat.description}"></textarea>
                 </div>
-
+                
                 <div class="form-group">
                     <label for="category">Category:</label>
                     <select class="form-control" id="category" name="category.id" required>
@@ -33,7 +33,7 @@
                         <option th:each="category : ${categories}"
                                 th:value="${category.id}" 
                                 th:text="${category.name}"
-                                th:selected="${category.id == obat.category.id}">
+                                th:selected="${obat.category != null && obat.category.id == category.id}">
                         </option>
                     </select>
                 </div>
@@ -45,13 +45,13 @@
                         <option th:each="supplier : ${suppliers}"
                                 th:value="${supplier.id}" 
                                 th:text="${supplier.name}"
-                                th:selected="${supplier.id == obat.supplier.id}">
+                                th:selected="${obat.supplier != null && obat.supplier.id == supplier.id}">
                         </option>
                     </select>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a th:href="@{/}" class="btn btn-danger">Back To List</a>
+                <button type="submit" class="btn btn-primary">Update Obat</button>
+                <a th:href="@{/obat}" class="btn btn-primary">Back To Obat List</a>
             </form>
         </div>
     </body>

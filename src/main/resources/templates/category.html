@@ -3,6 +3,16 @@
     <head>
         <title>List Category</title>
         <link rel="stylesheet" th:href="@{/css/style.css}">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            window.onload = function() {
+                var message = /*[[${message}]]*/ '';
+                if (message && message.length > 0) {
+                    alert(message);
+                }
+            }
+            /*]]>*/
+        </script>
     </head>
 
     <body>
@@ -22,19 +32,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="category : ${categorys}">
+                    <tr th:each="category : ${categories}">
                         <td th:text="${category.id}"></td>
                         <td th:text="${category.name}"></td>
                         <td th:text="${category.description}"></td>
                         <td>
-                            <form th:action="@{/category/delete/{id}(id=${category.id})}" method="post" style="display: inline;">
-                                <button type="submit" class="btn btn-danger" 
-                                        onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
-                            </form>
+                            <a th:href="@{/category/edit/{id}(id=${category.id})}" 
+                               class="btn btn-danger">Edit</a>
+                            <a th:href="@{/category/delete/{id}(id=${category.id})}" 
+                               class="btn btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this category?')">Delete</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <button>
+                <a th:href="@{/obat}" class="btn btn-primary">List Obat</a>
+            </button>
+            <button>
+                <a th:href="@{/supplier}" class="btn btn-primary">List Supplier</a>
+            </button>
         </div>
     </body>
 </html>

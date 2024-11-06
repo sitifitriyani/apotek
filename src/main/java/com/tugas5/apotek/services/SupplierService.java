@@ -20,8 +20,29 @@ public class SupplierService {
         return supplierRepository.save(supplier);
     }
 
-    public void deleteSupplier(Integer id) {
-        supplierRepository.deleteById(id);
+     public boolean canDeleteSupplier(Integer id) {
+        Supplier supplier = getSupplierById(id);
+        return supplier.getObats().isEmpty();
     }
 
+    public boolean deleteSupplier(Integer id) {
+        if (!canDeleteSupplier(id)) {
+            return false;
+        }
+        supplierRepository.deleteById(id);
+        return true;
+    }
+
+    public Supplier getSupplierById(Integer id) {
+        return supplierRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Supplier not found"));
+    }
+
+    public Supplier updateSupplier(Integer id, Supplier supplier) {
+        Supplier existingSupplier = getSupplierById(id);
+        existingSupplier.setName(supplier.getName());
+        existingSupplier.setAddress(supplier.getAddress());
+        existingSupplier.setPhone(supplier.getPhone());
+        return supplierRepository.save(existingSupplier);
+    }
 }
